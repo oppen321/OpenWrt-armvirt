@@ -12,7 +12,7 @@ env:
   DIY_SCRIPT: diy-script.sh
   CLASH_KERNEL: arm64
   DOCKER_BUILD: buildImageX.sh
-  DOCKER_IMAGE: zhaoweiwen123/armvirt-openwrt
+  DOCKER_IMAGE: zhaoweiwen123/openwrt-aarch64
   TZ: Asia/Shanghai
 
 jobs:
