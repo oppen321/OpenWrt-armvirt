@@ -71,9 +71,6 @@ git clone --depth=1 https://github.com/oppen321/luci-app-argon-config package/lu
 git clone --depth=1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git_sparse_clone main https://github.com/haiibo/packages luci-theme-atmaterial luci-theme-opentomcat luci-theme-netgear
 
-# 更改 Argon 主题背景
-cp -f $GITHUB_WORKSPACE/images/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-
 # 晶晨宝盒
 git_sparse_clone main https://github.com/ophub/luci-app-amlogic luci-app-amlogic
 sed -i "s|firmware_repo.*|firmware_repo 'https://github.com/oppen321/OpenWrt-armvirt'|g" package/luci-app-amlogic/root/etc/config/amlogic
