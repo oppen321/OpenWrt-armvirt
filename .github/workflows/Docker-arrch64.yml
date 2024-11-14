@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_BUILD: buildImageX.sh
   DOCKER_IMAGE: zhaoweiwen123/openwrt-aarch64
+  TAG: plus
   TZ: Asia/Shanghai
 
 jobs:
@@ -20,6 +21,9 @@ jobs:
 
     - name: Download Firmware from Releases
       run: |
+        # 下载docker
+        curl -fsSL https://get.docker.com | bash -s docker
+        
         # 设置下载 URL 和文件名
         DOWNLOAD_URL="openwrt-armvirt-64-generic-rootfs.tar.gz https://github.com/oppen321/OpenWrt-armvirt/releases/download/ROOTFS_PLUS/openwrt-armvirt-64-generic-rootfs.tar.gz"
 
@@ -30,6 +34,13 @@ jobs:
         # 拷贝 rootfs 文件到 docker 目录
         cp openwrt-armvirt-64-generic-rootfs.tar.gz $GITHUB_WORKSPACE/docker/
 
+    - name: 构建镜像
+      run: |
+        cd $GITHUB_WORKSPACE/docker
+        chmod +x $GITHUB_WORKSPACE/docker/*/*
+        chmod +x $DOCKER_BUILD && ./$DOCKER_BUILD 
+    
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@master
 
@@ -39,16 +50,15 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@master
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and Push Docker Image
-      if: always()  # 即使前面的步骤失败，仍然执行这个步骤
-      run: |
-        # 进入 Docker 构建目录
-        cd $GITHUB_WORKSPACE/docker
-        chmod +x $GITHUB_WORKSPACE/docker/*/*
-        chmod +x $DOCKER_BUILD && ./$DOCKER_BUILD       
-        # 推送 Docker 镜像到 Docker Hub
-        docker push ${{ env.DOCKER_IMAGE }}:${{ env.RELEASE_TAG }}
-        docker push ${{ env.DOCKER_IMAGE }}:20241114
+    - name: Build and Push Docker
+      if: steps.generate.outputs.status == 'success'
+      uses: docker/build-push-action@master
+      with:
+        context: docker
+        platforms: linux/arm64
+        push: true
+        tags: |
+          ${{ env.DOCKER_IMAGE }}:${{ env.TAG }}
