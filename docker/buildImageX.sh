@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TMPDIR=openwrt-armvirt
+TMPDIR=openwrt-aarch64
 ROOTFS=openwrt-armvirt-64-generic-rootfs.tar.gz
 
 [ -d "$TMPDIR" ] && rm -rf "$TMPDIR"
