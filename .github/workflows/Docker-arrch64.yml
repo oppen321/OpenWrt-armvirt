@@ -1,4 +1,4 @@
-name: Docker-arrch64-plus.yml
+name: Docker-arrch64-plus
 
 on:
   workflow_dispatch:  # 手动触发
