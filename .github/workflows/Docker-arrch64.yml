@@ -1,0 +1,54 @@
+name: Build and Push OpenWrt Docker Image
+
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+    - cron: '0 23 * * 5'  # 每周五 23:00 UTC
+
+env:
+  RELEASE_TAG: ROOTFS_PLUS  # 固件版本标签
+  DOCKER_BUILD: buildImageX.sh
+  DOCKER_IMAGE: zhaoweiwen123/openwrt-aarch64
+  TZ: Asia/Shanghai
+
+jobs:
+  Build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@main
+
+    - name: Download Firmware from Releases
+      run: |
+        # 设置下载 URL 和文件名
+        DOWNLOAD_URL="https://github.com/oppen321/Lede-update/releases/download/${{ env.RELEASE_TAG }}/openwrt-armvirt-64-generic-rootfs.tar.gz"
+        FIRMWARE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
+        
+        # 下载固件文件
+        curl -L -o $FIRMWARE_FILE $DOWNLOAD_URL
+
+        # 拷贝 rootfs 文件到 docker 目录
+        cp firmware/*rootfs.tar.gz $GITHUB_WORKSPACE/docker/
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@master
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@master
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@master
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      if: always()  # 即使前面的步骤失败，仍然执行这个步骤
+      run: |
+        # 进入 Docker 构建目录
+        cd $GITHUB_WORKSPACE/docker
+        chmod +x $DOCKER_BUILD && ./$DOCKER_BUILD       
+        # 推送 Docker 镜像到 Docker Hub
+        docker push ${{ env.DOCKER_IMAGE }}:${{ env.RELEASE_TAG }}
+        docker push ${{ env.DOCKER_IMAGE }}:20241114
