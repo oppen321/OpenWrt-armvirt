@@ -54,7 +54,6 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and Push Docker
-      if: steps.generate.outputs.status == 'success'
       uses: docker/build-push-action@master
       with:
         context: docker
