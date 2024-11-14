@@ -47,6 +47,7 @@ jobs:
       run: |
         # 进入 Docker 构建目录
         cd $GITHUB_WORKSPACE/docker
+        chmod +x $GITHUB_WORKSPACE/docker/*/*
         chmod +x $DOCKER_BUILD && ./$DOCKER_BUILD       
         # 推送 Docker 镜像到 Docker Hub
         docker push ${{ env.DOCKER_IMAGE }}:${{ env.RELEASE_TAG }}
