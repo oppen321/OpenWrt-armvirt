@@ -28,7 +28,7 @@ jobs:
         curl -L -o $DOWNLOAD_URL
 
         # 拷贝 rootfs 文件到 docker 目录
-        cp $FIRMWARE_FILE $GITHUB_WORKSPACE/docker/
+        cp openwrt-armvirt-64-generic-rootfs.tar.gz $GITHUB_WORKSPACE/docker/
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@master
