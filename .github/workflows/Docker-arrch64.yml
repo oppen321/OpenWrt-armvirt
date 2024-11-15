@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_BUILD: buildImageX.sh
   DOCKER_IMAGE: zhaoweiwen123/openwrt-aarch64
-  TAG: plus
+  TAG: latest
   TZ: Asia/Shanghai
 
 jobs:
