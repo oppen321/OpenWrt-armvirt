@@ -2,7 +2,7 @@ name: Docker-arrch64-plus
 
 on:
   workflow_run:
-    workflows: ["ARMv8-Plus-OpenWrt.yml"]  # 监听的工作流名称
+    workflows: ["ARMv8 Plus OpenWrt"]  # 监听的工作流名称
     types:
       - completed  # 仅在指定工作流完成时触发
 
