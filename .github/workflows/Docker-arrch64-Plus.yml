@@ -1,6 +1,7 @@
 name: Docker-arrch64-plus
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["ARMv8 Plus OpenWrt"]  # 监听的工作流名称
     types:
