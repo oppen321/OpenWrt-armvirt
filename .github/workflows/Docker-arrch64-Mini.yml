@@ -1,6 +1,7 @@
 name: Docker-arrch64-mini
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["ARMv8-Mini-OpenWrt"]  # 监听的工作流名称
     types:
