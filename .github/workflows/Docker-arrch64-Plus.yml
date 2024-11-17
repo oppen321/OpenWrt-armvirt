@@ -1,9 +1,10 @@
 name: Docker-arrch64-plus
 
 on:
-  workflow_dispatch:  # 手动触发
-  schedule:
-    - cron: '0 23 * * 5'  # 每周五 23:00 UTC
+  workflow_run:
+    workflows: ["ARMv8-Plus-OpenWrt.yml"]  # 监听的工作流名称
+    types:
+      - completed  # 仅在指定工作流完成时触发
 
 env:
   DOCKER_BUILD: buildImageX.sh
