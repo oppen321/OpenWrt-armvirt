@@ -1,4 +1,4 @@
-name: ARMv8 Mini OpenWrt
+name: ARMv8 Mini Docker
 
 on:
   workflow_dispatch:
