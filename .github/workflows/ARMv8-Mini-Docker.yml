@@ -14,9 +14,9 @@ env:
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
-  FIRMWARE_TAG: Docker_MINI
+  FIRMWARE_TAG: DOCKER_MINI
   OPENWRT_RELEASE: true
-  OPENWRT_TAG: ARMv8_MINI_Docker
+  OPENWRT_TAG: ARMv8_MINI_DOCKER
   TZ: Asia/Shanghai
 
 jobs:
@@ -230,7 +230,7 @@ jobs:
         curl -fsSL https://get.docker.com | bash -s docker
         
         # 设置下载 URL 和文件名
-        DOWNLOAD_URL="openwrt-armvirt-64-generic-rootfs.tar.gz https://github.com/oppen321/OpenWrt-armvirt/releases/download/Docker_MINI/openwrt-armvirt-64-generic-rootfs.tar.gz"
+        DOWNLOAD_URL="openwrt-armvirt-64-generic-rootfs.tar.gz https://github.com/oppen321/OpenWrt-armvirt/releases/download/DOCKER_MINI/openwrt-armvirt-64-generic-rootfs.tar.gz"
 
         
         # 下载固件文件
