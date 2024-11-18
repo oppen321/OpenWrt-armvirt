@@ -1,4 +1,4 @@
-name: ARMv8 Plus OpenWrt
+name: ARMv8 Plus Docker
 
 on:
   workflow_dispatch:
