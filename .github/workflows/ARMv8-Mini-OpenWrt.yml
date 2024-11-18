@@ -209,3 +209,9 @@ jobs:
           - ${{ env.COMMIT_DATE }}
           - ${{ env.COMMIT_MESSAGE }}
           - ${{ env.COMMIT_HASH }}
+
+  Package:
+    needs: [Build]
+    runs-on: ubuntu-22.04
+
+    
