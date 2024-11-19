@@ -54,6 +54,13 @@ git_sparse_clone main https://github.com/haiibo/packages luci-theme-opentomcat
 # 更改 Argon 主题背景
 cp -f $GITHUB_WORKSPACE/images/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
+# 自定义设置
+cp -f $GITHUB_WORKSPACE/Diy/banner package/base-files/files/etc/banner
+
+# 更改主机名
+sed -i "s/hostname='.*'/hostname='ZeroWrt'/g" package/base-files/luci2/bin/config_generate
+sed -i "s/hostname='.*'/hostname='ZeroWrt'/g" package/base-files/files/bin/config_generate
+
 # 晶晨宝盒
 git_sparse_clone main https://github.com/ophub/luci-app-amlogic luci-app-amlogic
 sed -i "s|firmware_repo.*|firmware_repo 'https://github.com/oppen321/OpenWrt-armvirt'|g" package/luci-app-amlogic/root/etc/config/amlogic
