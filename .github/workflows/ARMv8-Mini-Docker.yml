@@ -2,8 +2,8 @@ name: ARMv8 Mini Docker
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 23 * * 6
+#  schedule:
+#    - cron: 0 23 * * 6
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
